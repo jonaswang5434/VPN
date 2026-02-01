@@ -59,4 +59,26 @@ google浏览器：<br>
 如果使用插件：SwitchyOmega <br>
 - 那么所有的https,http,都需要设置为socks5 才行。<br>
 - 最后点击apply
+# Docker 内配置代理：
+### step1:
+query localhost machine ip: `ip addr` <br>
+通常默认minikube 的ip 地址是192.168.49.1:， 不确定可以让ai 确认
+### step2:
+```
+minikube ssh
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf <<EOF
+[Service]
+Environment="HTTP_PROXY=socks5h://192.168.49.1:1080"
+Environment="HTTPS_PROXY=socks5h://192.168.49.1:1080"
+Environment="NO_PROXY=localhost,127.0.0.1,192.168.49.1"
+EOF
+# restart docker ,make it effective
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+# 测试 DNS 和连接
+curl -I https://registry.k8s.io
+```
 
