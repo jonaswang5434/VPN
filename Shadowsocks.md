@@ -60,10 +60,11 @@ google浏览器：<br>
 - 那么所有的https,http,都需要设置为socks5 才行。<br>
 - 最后点击apply
 # Docker 内配置代理：
-### step1:
-query localhost machine ip: `ip addr` <br>
+### step1: 确认local machine ip 地址
+- query localhost machine ip: `ip addr` <br>
 通常默认minikube 的ip 地址是192.168.49.1:， 不确定可以让ai 确认
-### step2:
+- 确保shadowsocks 配置的local ip 监听地址是0.0.0.0,监听所有请求（包含docker内)所有请求
+### step2: config proxy and test 
 ```
 minikube ssh
 sudo mkdir -p /etc/systemd/system/docker.service.d
