@@ -92,6 +92,7 @@ sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/hysteria/
 生成后，启动 Hysteria 2 服务并设置开机自启：
 
 ```bash
+sudo chmod 644 /etc/hysteria/server.crt /etc/hysteria/server.key
 sudo systemctl enable hysteria-server
 sudo systemctl restart hysteria-server
 
